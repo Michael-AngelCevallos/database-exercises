@@ -133,8 +133,14 @@ select first_name, last_name, count(*) from employees group by first_name, last_
 
 
 # Find the most common name
+
+
 # Find the most common female and male name
+
+
 # Find total number of female and male employees
+SELECT gender, count(*) from employees
+group by gender;
 # Find the highest employee number of each unique first name
 # Select the first and last hire date for each first name
 # Find the minimum, maximum, average, and total number of salaries
