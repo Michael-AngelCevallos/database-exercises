@@ -14,4 +14,5 @@ SELECT name FROM albums WHERE sales < 20.0;
 
 SELECT 'Albums with genre of: Rock, Soft Rock' AS '========Exercise 5 ';
 SELECT name FROM albums WHERE genre = 'Rock, Soft Rock';
+# can also use : SELECT name FROM albums LIKE %rock%
 
