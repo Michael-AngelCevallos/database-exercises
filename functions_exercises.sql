@@ -44,8 +44,8 @@ ORDER BY birth_date ASC, hire_date DESC;
 
 SELECT CONCAT(
                first_name, ' ', last_name, ' has been working here for ',
-               ROUND ((UNIX_TIMESTAMP(hire_date) - CURDATE())/60/60/24/30/12, 0),
-               ' years.'
+               ROUND ((UNIX_TIMESTAMP(hire_date) - CURDATE())/60/60/24, 0),
+               ' days.'
            )
 from employees
 WHERE hire_date LIKE ('199%')
