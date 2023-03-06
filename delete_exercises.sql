@@ -8,3 +8,4 @@ DELETE FROM albums WHERE genre = 'Disco';
 
 SELECT 'Deleting all albums by ''Pink Floyd'':' AS ' ';
 DELETE FROM albums WHERE artist = 'Pink Floyd'
+
