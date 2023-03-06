@@ -25,7 +25,9 @@ ORDER BY birth_date ASC, hire_date DESC
 LIMIT 5;
 
 
-SELECT 'Christmas birthdays, hired first' AS ' ';
+
+
+
 SELECT first_name, last_name, hire_date, birth_date
 FROM employees
 WHERE hire_date LIKE ('199%')
