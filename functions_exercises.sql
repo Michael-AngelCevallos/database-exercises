@@ -9,8 +9,6 @@ WHERE last_name LIKE ('E%') AND last_name Like('%E');
 
 
 
-
-
 #todo #3 Find all employees born on Christmas — 842 rows.
 
 
@@ -53,3 +51,7 @@ WHERE hire_date LIKE ('199%')
 ORDER BY hire_date, birth_date;
 
 
+SELECT first_name, last_name, hire_date
+from employees
+GROUP BY hire_date, first_name, last_name
+order by hire_date DESC;
