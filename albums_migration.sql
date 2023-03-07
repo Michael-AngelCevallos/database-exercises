@@ -9,5 +9,12 @@ CREATE TABLE albums (
                         release_date INT(4) NOT NULL,
                         sales FLOAT NOT NULL,
                         genre VARCHAR(200) DEFAULT 'Undefined',
+                        Unique (artist, name),
                         PRIMARY KEY (id)
 );
+
+show tables;
+
+show index from albums;
+
+describe albums;
