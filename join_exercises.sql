@@ -14,13 +14,15 @@ USE employees;
 #  write a query that shows each department , along with the name of the current manager,  for that department.
 
 
-SELECT d.dept_name AS Department_Name, CONCAT(e.first_name, ' ', e.last_name) AS Department_Manager
+SELECT d.dept_name AS Department_Name,
+       CONCAT(e.first_name, ' ', e.last_name) AS Department_Manager
 FROM employees AS e
 JOIN dept_manager AS dm
 ON dm.emp_no = e.emp_no
 JOIN departments AS d
 ON dm.dept_no = d.dept_no
-WHERE dm.to_date = '9999-01-01';
+WHERE dm.to_date = '9999-01-01'
+ORDER BY d.dept_name; /* this line puts everything in ALphabetical order within the Department Name */
 
 
 # todo #3 Find the name of all departments currently managed by women.
@@ -30,7 +32,8 @@ JOIN dept_manager AS dm
     ON dm.emp_no = e.emp_no
 JOIN departments AS d
     ON dm.dept_no = d.dept_no
-WHERE dm.to_date = '9999-01-01' AND e.gender = 'F';
+WHERE dm.to_date = '9999-01-01' AND e.gender = 'F'
+ORDER BY d.dept_name;
 
 
 # todo #4 Find the current titles of employees currently working in the Customer Service department.
@@ -57,6 +60,21 @@ JOIN dept_manager AS dm
     ON e.emp_no = dm.emp_no
 JOIN departments AS d
     ON  d.dept_no = dm.dept_no
-WHERE dm.to_date = '9999-01-01' AND sal.to_date = '9999-01-01';
+WHERE dm.to_date = '9999-01-01' AND sal.to_date = '9999-01-01'
+ORDER BY d.dept_name;
 
 # todo BONUS : Find the names of all current employees, their department name, and their current manager's name .
+
+SELECT concat(e.first_name, ' ', e.last_name) AS EMPLOYEE_NAME, d.dept_name AS DEPARTMENT, concat(em.first_name, ' ', em.last_name) AS MANAGER
+from employees AS e
+Join dept_emp AS de
+    ON  de.emp_no = e.emp_no
+JOIN dept_manager AS dm
+    ON e.emp_no = dm.emp_no
+JOIN departments AS d
+    ON de.dept_no = d.dept_no
+JOIN employees AS em
+    ON  dm.emp_no = em.emp_no
+WHERE de.to_date = '9999-01-01' AND dm.to_date = '9999-01-01'
+ORDER BY d.dept_name
+LIMIT 40;

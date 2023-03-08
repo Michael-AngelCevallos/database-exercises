@@ -286,3 +286,110 @@ FROM employees e
 WHERE e.emp_no = 10010
   AND de.to_date > NOW();
 
+
+
+# MySQL allows us to JOIN tables, usually based on a foreign key relationship. The process of joining will allow us to obtain query results from more than one table in a single query. There are different types of joins, and those different types give us a lot of flexibility in the actual query results. We will be discussing the following types of joins:
+#
+# JOIN, a.k.a INNER JOIN
+# LEFT JOIN- gives evrything inner join does BUT only from the USERS
+# RIGHT JOIN - gives evrything inner join does BUT only from the ROLES
+
+
+# Practice Joins:
+
+USE codeup_test_db;
+
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS roles;
+
+CREATE TABLE roles
+(
+    id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE users
+(
+    id      INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name    VARCHAR(100) NOT NULL,
+    email   VARCHAR(100) NOT NULL,
+    role_id INT UNSIGNED DEFAULT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+
+INSERT INTO roles (name)
+VALUES ('admin');
+INSERT INTO roles (name)
+VALUES ('author');
+INSERT INTO roles (name)
+VALUES ('reviewer');
+INSERT INTO roles (name)
+VALUES ('commenter');
+
+INSERT INTO users (name, email, role_id)
+VALUES ('bob', 'bob@example.com', 1),
+       ('joe', 'joe@example.com', 2),
+       ('sally', 'sally@example.com', 3),
+       ('adam', 'adam@example.com', 3),
+       ('jane', 'jane@example.com', NULL),
+       ('mike', 'mike@example.com', NULL);
+
+SELECT *
+FROM roles;
+SELECT *
+FROM users;
+
+
+# TODO: output user name and role for all records with a non-null user name and role name
+
+SELECT users.name, roles.name
+FROM users
+         INNER JOIN roles ON roles.id = users.role_id;
+
+
+# returns
+/*
+ users.name   |    roles.name
+    bob       |      admin
+    joe       |      author
+    sally     |      reviewer
+    adam      |      reviewer
+
+ */
+
+
+# TODO: output user name and their role name for all matches and all users regardless of null roles (LEFT)
+
+SELECT users.name, roles.name
+FROM users
+         LEFT JOIN roles ON roles.id = users.role_id;
+
+# returns
+/*
+ users.name   |    roles.name
+    bob       |      admin
+    joe       |      author
+    sally     |      reviewer
+    adam      |      reviewer
+    jane      |      <null>
+    mike      |      <null>
+ */
+
+
+
+# TODO: output user name and role for all non-null matches and all roles with null users (RIGHT)
+SELECT users.name, roles.name
+FROM users
+         RIGHT JOIN roles ON roles.id = users.role_id;
+
+# returns
+/*
+ users.name   |    roles.name
+    bob       |      admin
+    joe       |      author
+    sally     |      reviewer
+    adam      |      reviewer
+   <null>     |      commenter
+ */
